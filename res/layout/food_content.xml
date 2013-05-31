@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@android:color/white">
+    
+
+    <ImageView
+        android:id="@+id/chat_food_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginLeft="30dip"        
+        android:src="@drawable/ic_launcher" />
+
+    <RelativeLayout
+        android:id="@+id/chat_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_toRightOf="@id/chat_food_view"
+         >
+
+        <TextView
+            android:id="@+id/food_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="单品名称" />
+	
+        <TextView
+            android:id="@+id/food_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="菜品内容介绍"
+            android:layout_below="@id/food_name"
+            />
+        
+        <TextView
+            android:id="@+id/food_price"
+            android:layout_below="@id/food_content"
+            android:layout_marginTop="20dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单价:" />
+        
+
+    </RelativeLayout>
+    <Button 
+        android:id="@+id/add_cart_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:layout_below="@id/chat_layout"
+        android:layout_centerHorizontal="true"
+        android:text="加入购物车"/>
+    
+</RelativeLayout>
