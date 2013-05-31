@@ -57,6 +57,17 @@ public class Food implements Parcelable
 //	}
 
 	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof Food){
+			Food f = (Food) obj;
+			return f.name.equals(name);
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public int describeContents()
 	{
 		// TODO Auto-generated method stub
