@@ -2,20 +2,18 @@ package com.xin.menu.adapter;
 
 import java.util.ArrayList;
 
-import com.xin.menu.R;
-import com.xin.menu.adapter.FoodsAdapter.ChatListener;
-import com.xin.menu.adapter.FoodsAdapter.ViewHolder;
-import com.xin.menu.model.Food;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.xin.menu.R;
+import com.xin.menu.model.Food;
+import com.xin.menu.util.L;
 
 public class ChatAdapter extends BaseAdapter
 {
@@ -36,7 +34,7 @@ public class ChatAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return lists.size() > 0 ? lists.size() : 0;
+		return lists.size();// > 0 ? lists.size() : 0;
 	}
 
 	@Override
@@ -63,25 +61,25 @@ public class ChatAdapter extends BaseAdapter
 			holder.food_price = (TextView) view.findViewById(R.id.food_price);
 			holder.number = (TextView) view.findViewById(R.id.food_count);
 			holder.foodName = (TextView) view.findViewById(R.id.food_name);
+			holder.chatbox = (CheckBox) view.findViewById(R.id.chat_cbox);
 			view.setTag(holder);
 		}else {
 			holder = (ViewHolder) view.getTag();
 		}
-		
 		final Food food = lists.get(position);
-		holder.foodImage.setImageBitmap(food.bitmap);
-		holder.number.setText(food.id + "");
+		holder.foodImage.setImageResource(food.bitmapUrl);
+		holder.number.setText("商品数量：" + food.count + " 件");
 		holder.food_price.setText( mContext.getResources().getString(R.string.price) + food.price);
 		holder.foodName.setText(food.name);
-		
-		
+		holder.chatbox.setChecked(food.isRacking);
 		return view;
 	}
 
-	static final class ViewHolder
+	
+	public static final class ViewHolder
 	{
 		TextView number,food_price,foodName;
-		
+		public CheckBox chatbox;
 		ImageView foodImage;
 	}
 }

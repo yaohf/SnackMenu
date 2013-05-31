@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,7 +60,7 @@ public  class FoodsAdapter extends BaseAdapter
 		{
 			holder = new ViewHolder();
 			view = inflater.inflate(R.layout.list_item, null);
-			holder.chatBtn = (Button) view.findViewById(R.id.chat_btn);
+//			holder.chatBtn = (ImageButton) view.findViewById(R.id.chat_btn);
 			holder.foodImage = (ImageView) view.findViewById(R.id.food_image);
 			holder.food_price = (TextView) view.findViewById(R.id.food_price);
 			holder.number = (TextView) view.findViewById(R.id.number);
@@ -70,21 +71,21 @@ public  class FoodsAdapter extends BaseAdapter
 		}
 		
 		final Food food = lists.get(position);
-		holder.foodImage.setImageBitmap(food.bitmap);
+		holder.foodImage.setImageResource(food.bitmapUrl);
 		holder.number.setText(food.id + "");
 		holder.food_price.setText( mContext.getResources().getString(R.string.price) + food.price);
 		holder.foodName.setText(food.name);
 		
 		//点击购物
-		holder.chatBtn.setOnClickListener(new OnClickListener()
-		{
-			
-			@Override
-			public void onClick(View arg0)
-			{
-				chatlistener.onChatFood(food);
-			}
-		});
+//		holder.chatBtn.setOnClickListener(new OnClickListener()
+//		{
+//			
+//			@Override
+//			public void onClick(View arg0)
+//			{
+//				chatlistener.onChatFood(food);
+//			}
+//		});
 		
 		return view;
 	}
@@ -92,7 +93,7 @@ public  class FoodsAdapter extends BaseAdapter
 	static final class ViewHolder
 	{
 		TextView number,food_price,foodName;
-		Button chatBtn;
+		ImageButton chatBtn;
 		
 		ImageView foodImage;
 	}

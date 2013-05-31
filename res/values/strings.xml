@@ -12,6 +12,7 @@
 	<!-- 购物 -->
 	<string name="chat_btn">购买</string>
 	<string name="price">价格：</string>
-	
-	
+	<string name="add_cart_ahost">已添加至购物车!</string>
+	<string name="go_shopping">去购物车结算</string>
+	<string name="continue_shopping">继续购物</string>
 </resources>

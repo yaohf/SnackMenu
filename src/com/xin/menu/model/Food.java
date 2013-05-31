@@ -1,8 +1,14 @@
 package com.xin.menu.model;
 
+import java.io.ByteArrayOutputStream;
+
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+
 import android.os.Parcel;
 import android.os.Parcelable;
+
 
 public class Food implements Parcelable
 {
@@ -11,21 +17,44 @@ public class Food implements Parcelable
 	 * menuName 菜品名称
 	 * price 菜品价钱
 	 * count 数量
+	 * isRacking 是否上架
 	 */
 	public int id;
 	public String name;
+	public String content;
 	public float price;
-	public int count; 
-	public Bitmap bitmap;
-	
+	public int count = 1;
+	public int bitmapUrl;
+	public boolean isRacking;
+//	public Bitmap bitmap;
+//	
+//	private static  byte [] byteBitmap;
+//	
+//	private byte [] getBytes(Bitmap bitmap){
+//		ByteArrayOutputStream baops = new ByteArrayOutputStream();
+//		bitmap.compress(CompressFormat.PNG, 0, baops);
+//		return baops.toByteArray();
+//	}
+//	private static Bitmap getBitmap(byte [] bytes){
+//		return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//	}
 	
 	
 	@Override
 	public String toString()
 	{
 		return "Food [id=" + id + ", name=" + name + ", price=" + price
-				+ ", count=" + count + ", bitmap=" + bitmap + "]";
+				+ ", count=" + count + ", bitmap=" + bitmapUrl + "]";
 	}
+
+//	@Override
+//	public int hashCode()
+//	{
+//		final int PRIME = 31;
+//		int result = 1;
+//		result = PRIME * result + id;
+//		return result;
+//	}
 
 	@Override
 	public int describeContents()
@@ -41,7 +70,12 @@ public class Food implements Parcelable
 		dest.writeInt(count);
 		dest.writeString(name);
 		dest.writeFloat(price);
-		dest.writeParcelable(bitmap, 0);
+		dest.writeInt(bitmapUrl);
+//		byteBitmap = getBytes(bitmap);
+//		dest.writeByteArray(byteBitmap);
+//		dest.writeParcelable(bitmap, flags);
+//		bitmap.writeToParcel(dest, 0);
+		dest.writeString(content);
 	}
 	public static final Parcelable.Creator<Food> CREATOR = new Parcelable.Creator<Food>(){
 
@@ -53,6 +87,11 @@ public class Food implements Parcelable
 			item.count = par.readInt();
 			item.name = par.readString();
 			item.price = par.readFloat();
+			item.content = par.readString();
+			item.bitmapUrl = par.readInt();
+//			par.readByteArray(byteBitmap);
+//			item.bitmap = getBitmap(byteBitmap);
+//			item.bitmap = (Bitmap)par.readParcelable(Bitmap.class.getClassLoader());
 			return item;
 		}
 
