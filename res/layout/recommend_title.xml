@@ -7,6 +7,7 @@
     <com.xin.menu.view.MyViewPager 
         android:id="@+id/recommed_title_pager"
         android:layout_width="fill_parent"
-        android:layout_height="200dip"/>
+        android:layout_height="200dip"
+        />
 
 </LinearLayout>
