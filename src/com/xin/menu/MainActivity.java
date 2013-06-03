@@ -1,6 +1,7 @@
 package com.xin.menu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,65 +10,127 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xin.menu.adapter.FoodsAdapter;
 import com.xin.menu.adapter.FoodsAdapter.ChatListener;
+import com.xin.menu.adapter.ViewPagerAdapter;
 import com.xin.menu.model.Food;
 import com.xin.menu.model.ShoppingCart;
 import com.xin.menu.util.L;
 import com.xin.menu.view.XListView;
 import com.xin.menu.view.XListView.IXListViewListener;
 
-public class MainActivity extends Activity implements ChatListener,IXListViewListener,OnItemClickListener
+public class MainActivity extends Activity implements ChatListener,
+		IXListViewListener, OnItemClickListener
 {
 	private Context mContext;
-	
+
 	private XListView snacklist;
+	private ViewPager recommendTitle;
+
 	ArrayList<Food> lists = new ArrayList<Food>();
 	FoodsAdapter foodsAdapter;
-	
-	ShoppingCart shopping;	
+
+	ShoppingCart shopping;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		mContext = this;
-		
+
 		loadlist();
 		snacklist = (XListView) findViewById(R.id.custom_list);
-		foodsAdapter = new FoodsAdapter(this,lists,this);
+		snacklist.addHeaderView(initlistHeadView(), null, false);
+		foodsAdapter = new FoodsAdapter(this, lists, this);
 		snacklist.setAdapter(foodsAdapter);
 		snacklist.setOnItemClickListener(this);
 		snacklist.setPullLoadEnable(true);
 		snacklist.setXListViewListener(this);
-		
+
 		shopping = ShoppingCart.getInstance();
 	}
+
 	private int i;
-	public void loadlist(){
+
+	public void loadlist()
+	{
 		Food food = null;
-		for(i = 0; i != 20; i++){
+		for (i = 0; i != 20; i++)
+		{
 			food = new Food();
-			food.bitmapUrl =  R.drawable.ic_launcher;
+			food.bitmapUrl = R.drawable.ic_launcher;
 			food.id = i;
 			food.name = "红烧" + i;
-			food.price = 5 + i; 
+			food.price = 5 + i;
 			lists.add(food);
 		}
+	}
+
+	public View initlistHeadView()
+	{
+		View v_ = LayoutInflater.from(this).inflate(R.layout.recommend_title,
+				null);
+		recommendTitle = (ViewPager) v_.findViewById(R.id.recommed_title_pager);
+		
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT);
+
+		List<View> list = new ArrayList<View>();
+		for (int i = 0; i < 5; i++)
+		{
+			ImageView image = new ImageView(this);
+			image.setImageResource(R.drawable.ic_launcher);
+			image.setLayoutParams(params);
+			list.add(image);
+		}
+		ViewPagerAdapter vpAdapter = new ViewPagerAdapter(this, list);
+		recommendTitle.setAdapter(vpAdapter);
+		
+		recommendTitle.setOnPageChangeListener(new OnPageChangeListener()
+		{
+			
+			@Override
+			public void onPageSelected(int arg0)
+			{
+				Toast.makeText(MainActivity.this, "物价菜 " + arg0, 0).show();
+				
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		return v_;
+
 	}
 
 	@Override
@@ -76,27 +139,28 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 		L.v(food);
 		Toast.makeText(this, food.name, Toast.LENGTH_SHORT).show();
 	}
-	
-	private void onLoad(){
+
+	private void onLoad()
+	{
 		snacklist.stopRefresh();
 		snacklist.stopLoadMore();
 		snacklist.setRefreshTime("刚刚");
 	}
-	
-	
+
 	private static final int LISTVIEW_LOAD_MORE = 10;
 	private static final int LISTVIEW_REFRESH = 11;
-	
+
 	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler(){
+	private Handler handler = new Handler()
+	{
 
 		@Override
 		public void handleMessage(Message msg)
 		{
-			
+
 			final int what = msg.what;
 			L.v("what>>" + what);
-			switch(what)
+			switch (what)
 			{
 			case LISTVIEW_LOAD_MORE:
 				loadlist();
@@ -109,9 +173,9 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 			L.v("end");
 			super.handleMessage(msg);
 		}
-		
+
 	};
-	
+
 	@Override
 	public void onRefresh()
 	{
@@ -119,14 +183,14 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 		onLoad();
 		L.v("end");
 	}
-	
+
 	@Override
 	public void onLoadMore()
 	{
 		L.v("start");
 		handler.obtainMessage(LISTVIEW_LOAD_MORE).sendToTarget();
 		L.v("end");
-		
+
 	}
 
 	@Override
@@ -137,55 +201,58 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 		showDialog(f);
 		L.v("end");
 	}
-	
+
 	private TextView food_name_dialog;
 	private TextView food_content_dialog;
 	private TextView food_price_dialog;
 	private ImageView chat_food_view;
 	private Button addCartBtn;
 	private View view;
-	
+
 	private void showDialog(Food f)
 	{
-		final Food  food = f;
+		final Food food = f;
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		view = LayoutInflater.from(this).inflate(R.layout.food_content, null);
 		food_name_dialog = (TextView) view.findViewById(R.id.food_name);
 		food_name_dialog.setText(food.name);
-		
-		chat_food_view = (ImageView)view.findViewById(R.id.chat_food_view);
+
+		chat_food_view = (ImageView) view.findViewById(R.id.chat_food_view);
 		chat_food_view.setBackgroundResource(food.bitmapUrl);
-		
+
 		food_content_dialog = (TextView) view.findViewById(R.id.food_content);
 		food_content_dialog.setText(food.count + "");
-		
+
 		food_price_dialog = (TextView) view.findViewById(R.id.food_price);
 		food_price_dialog.setText(food.price + "");
-		
+
 		addCartBtn = (Button) view.findViewById(R.id.add_cart_btn);
 		addCartBtn.setOnClickListener(new View.OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View arg0)
 			{
 				// TODO Auto-generated method stub
 				shopping.addChar(food);
-				Toast.makeText(mContext,getString(R.string.add_cart_ahost), 0).show();
+				Toast.makeText(mContext, getString(R.string.add_cart_ahost), 0)
+						.show();
 			}
 		});
 		dialog.setView(view);
 		dialog.setPositiveButton(R.string.go_shopping, new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int arg1)
 			{
-				Intent intent = new Intent(MainActivity.this,ShoppingActivity.class);
+				Intent intent = new Intent(MainActivity.this,
+						ShoppingActivity.class);
 				Bundle b = new Bundle();
 				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());
-				for(Food f : shopping.getCarts()){
+				for (Food f : shopping.getCarts())
+				{
 					L.v("f>>" + f);
 				}
 				b.putParcelable("aa", food);
@@ -194,19 +261,16 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 				startActivity(intent);
 				dialog.dismiss();
 			}
-		})
-		.setNegativeButton(R.string.continue_shopping, new OnClickListener()
+		}).setNegativeButton(R.string.continue_shopping, new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-					dialog.dismiss();
+				dialog.dismiss();
 			}
-		})
-		.setCancelable(true)
-		.show();
-		
+		}).setCancelable(true).show();
+
 	}
-	
+
 }

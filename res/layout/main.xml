@@ -9,8 +9,6 @@
         android:layout_height="fill_parent"
         android:cacheColorHint="#00000000"
         >
-        
-        
     </com.xin.menu.view.XListView>
 
 </LinearLayout>
