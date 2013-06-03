@@ -183,7 +183,7 @@ public class MainActivity extends Activity implements ChatListener,IXListViewLis
 			{
 				Intent intent = new Intent(MainActivity.this,ShoppingActivity.class);
 				Bundle b = new Bundle();
-				b.putInt("chat_count", shopping.getCount());
+				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());
 				for(Food f : shopping.getCarts()){
 					L.v("f>>" + f);

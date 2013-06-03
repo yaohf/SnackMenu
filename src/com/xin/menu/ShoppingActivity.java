@@ -2,6 +2,7 @@ package com.xin.menu;
 
 import java.util.ArrayList;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +17,13 @@ import android.widget.TextView;
 
 import com.xin.menu.adapter.ChatAdapter;
 import com.xin.menu.adapter.ChatAdapter.ViewHolder;
+import com.xin.menu.adapter.ChatAdapter.onChanagedCheckBoxListener;
 import com.xin.menu.model.Food;
 import com.xin.menu.model.ShoppingCart;
 import com.xin.menu.util.L;
 import com.xin.menu.view.XListView;
 
-public class ShoppingActivity extends Activity implements OnItemClickListener
+public class ShoppingActivity extends Activity implements OnItemClickListener,onChanagedCheckBoxListener
 {
 
 	private XListView chatlistview;
@@ -66,11 +68,22 @@ public class ShoppingActivity extends Activity implements OnItemClickListener
 			@Override
 			public void onClick(View arg0)
 			{
-				shopping.removeFoodList(flagIds);
-				buyList.removeAll(flagIds);
-				for(Food f : buyList){
-					L.v("f>>" + f);
+				L.v("start");
+				for(Food f : flagIds){
+					L.v("f forcech>>" + f);
+					for(Food food : shopping.getCarts()){
+						if(food.equals(f)){
+							L.v("food.id>>" + food.id + "\t f.id>>" + f.id);
+							shopping.removeFoodItem(f);
+							buyList.remove(food);
+							break;
+						}
+					}
 				}
+				flagIds.clear();
+				chatPriceView.setText(shopping.getSumPrice() + "");
+				commodityCount.setText("" + shopping.getCount());
+				chatTitle.setText("我的购物车(" + shopping.getCount() + ")");
 				chatAdapter.notifyDataSetChanged();
 			}
 		});
@@ -90,7 +103,7 @@ public class ShoppingActivity extends Activity implements OnItemClickListener
 		commodityCount.setText("共 " + count + " 件商品");
 		chatPriceView.setText("总价 " + chatPrice);
 
-		chatAdapter = new ChatAdapter(this, buyList);
+		chatAdapter = new ChatAdapter(this, buyList,this);
 		chatlistview.setAdapter(chatAdapter);
 
 		editBtn = (Button) findViewById(R.id.chat_edit);
@@ -123,6 +136,28 @@ public class ShoppingActivity extends Activity implements OnItemClickListener
 				flagIds.remove(f);
 			}
 		}
+	}
+
+	@Override
+	public void OnCheckedChanged(Food f,CompoundButton btn, boolean isChecked)
+	{
+		L.v("arg1>>" + isChecked);
+		if (btn.isChecked())
+		{
+			if (!flagIds.contains(f))
+			{
+				L.v("add food>>" + f);
+				flagIds.add(f);
+			}
+		} else
+		{
+			if (flagIds.size() > 0)
+			{
+				L.v("remove food>>" + f);
+				flagIds.remove(f);
+			}
+		}
+		
 	}
 
 }

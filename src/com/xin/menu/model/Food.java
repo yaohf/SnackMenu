@@ -2,6 +2,8 @@ package com.xin.menu.model;
 
 import java.io.ByteArrayOutputStream;
 
+import com.xin.menu.util.L;
+
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -59,10 +61,15 @@ public class Food implements Parcelable
 	@Override
 	public boolean equals(Object obj)
 	{
+		L.v("start");
 		if(obj instanceof Food){
+			L.v("obj instanceof Food true");
 			Food f = (Food) obj;
+			L.v("equals>>" + f.name.equals(name));
 			return f.name.equals(name);
 		}
+		
+		L.v("false");
 		// TODO Auto-generated method stub
 		return false;
 	}

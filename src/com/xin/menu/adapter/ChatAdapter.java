@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +23,9 @@ public class ChatAdapter extends BaseAdapter
 	private Context mContext;
 	private ArrayList<Food>lists;
 	private LayoutInflater inflater;
+	private onChanagedCheckBoxListener listener;
 	
-	public ChatAdapter(Context c,ArrayList<Food> list)
+	public ChatAdapter(Context c,ArrayList<Food> list,onChanagedCheckBoxListener l)
 	{
 		mContext = c;
 		inflater = LayoutInflater.from(mContext);
@@ -30,6 +33,7 @@ public class ChatAdapter extends BaseAdapter
 		if(list == null){
 			lists = new ArrayList<Food>();
 		}
+		listener = l;
 	}
 	@Override
 	public int getCount()
@@ -72,6 +76,16 @@ public class ChatAdapter extends BaseAdapter
 		holder.food_price.setText( mContext.getResources().getString(R.string.price) + food.price);
 		holder.foodName.setText(food.name);
 		holder.chatbox.setChecked(food.isRacking);
+		holder.chatbox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1)
+			{
+				// TODO Auto-generated method stub
+				listener.OnCheckedChanged(food,arg0, arg1);
+			}
+		});
 		return view;
 	}
 
@@ -81,5 +95,9 @@ public class ChatAdapter extends BaseAdapter
 		TextView number,food_price,foodName;
 		public CheckBox chatbox;
 		ImageView foodImage;
+	}
+	
+	public interface onChanagedCheckBoxListener{
+		public void OnCheckedChanged(Food f,CompoundButton btn,boolean arg1);
 	}
 }
