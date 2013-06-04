@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -66,6 +68,7 @@ public class ChatAdapter extends BaseAdapter
 			holder.number = (TextView) view.findViewById(R.id.food_count);
 			holder.foodName = (TextView) view.findViewById(R.id.food_name);
 			holder.chatbox = (CheckBox) view.findViewById(R.id.chat_cbox);
+			holder.delBtn = (Button) view.findViewById(R.id.delete_item_btn);
 			view.setTag(holder);
 		}else {
 			holder = (ViewHolder) view.getTag();
@@ -76,6 +79,7 @@ public class ChatAdapter extends BaseAdapter
 		holder.food_price.setText( mContext.getResources().getString(R.string.price) + food.price);
 		holder.foodName.setText(food.name);
 		holder.chatbox.setChecked(food.isRacking);
+	
 		holder.chatbox.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 			
@@ -84,6 +88,16 @@ public class ChatAdapter extends BaseAdapter
 			{
 				// TODO Auto-generated method stub
 				listener.OnCheckedChanged(food,arg0, arg1);
+			}
+		});
+		
+		holder.delBtn.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				listener.onDeleteItem(food, v);
 			}
 		});
 		return view;
@@ -95,9 +109,12 @@ public class ChatAdapter extends BaseAdapter
 		TextView number,food_price,foodName;
 		public CheckBox chatbox;
 		ImageView foodImage;
+		Button delBtn;
 	}
+	
 	
 	public interface onChanagedCheckBoxListener{
 		public void OnCheckedChanged(Food f,CompoundButton btn,boolean arg1);
+		public void onDeleteItem(Food f,View v);
 	}
 }

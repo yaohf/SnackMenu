@@ -1,5 +1,6 @@
 package com.xin.menu.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import com.xin.menu.util.L;
 
@@ -38,6 +39,7 @@ public class ShoppingCart
 	{
 		L.v(food);
 		Food item = food;
+		L.v("item >>" + item);
 		// 没有商品直接添加
 		if (foods.size() <= 0)
 		{
@@ -80,6 +82,7 @@ public class ShoppingCart
 	 */
 	public float getSumPrice()
 	{
+	
 		return sumPrice;
 	}
 

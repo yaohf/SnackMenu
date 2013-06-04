@@ -17,10 +17,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +77,7 @@ public class MainActivity extends Activity implements ChatListener,
 		for (i = 0; i != 20; i++)
 		{
 			food = new Food();
-			food.bitmapUrl = R.drawable.ic_launcher;
+			food.bitmapUrl = R.drawable.meitu_1;
 			food.id = i;
 			food.name = "红烧" + i;
 			food.price = 5 + i;
@@ -97,7 +99,8 @@ public class MainActivity extends Activity implements ChatListener,
 		for (int i = 0; i < 5; i++)
 		{
 			ImageView image = new ImageView(this);
-			image.setImageResource(R.drawable.ic_launcher);
+			image.setImageResource(R.drawable.meitu_1_200);
+			image.setScaleType(ScaleType.FIT_XY);
 			image.setLayoutParams(params);
 			list.add(image);
 		}
@@ -216,7 +219,7 @@ public class MainActivity extends Activity implements ChatListener,
 		view = LayoutInflater.from(this).inflate(R.layout.food_content, null);
 		food_name_dialog = (TextView) view.findViewById(R.id.food_name);
 		food_name_dialog.setText(food.name);
-
+		
 		chat_food_view = (ImageView) view.findViewById(R.id.chat_food_view);
 		chat_food_view.setBackgroundResource(food.bitmapUrl);
 
@@ -239,7 +242,7 @@ public class MainActivity extends Activity implements ChatListener,
 						.show();
 			}
 		});
-		dialog.setView(view);
+		
 		dialog.setPositiveButton(R.string.go_shopping, new OnClickListener()
 		{
 
@@ -251,11 +254,7 @@ public class MainActivity extends Activity implements ChatListener,
 				Bundle b = new Bundle();
 				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());
-				for (Food f : shopping.getCarts())
-				{
-					L.v("f>>" + f);
-				}
-				b.putParcelable("aa", food);
+				
 				b.putParcelableArrayList("buy_list", shopping.getCarts());
 				intent.putExtra("chat", b);
 				startActivity(intent);
@@ -269,7 +268,12 @@ public class MainActivity extends Activity implements ChatListener,
 			{
 				dialog.dismiss();
 			}
-		}).setCancelable(true).show();
+		});
+		AlertDialog alert = dialog.create();
+		
+		alert.setView(view, 0, 0, 0, 0);
+		alert.setCancelable(true);
+		alert.show();
 
 	}
 

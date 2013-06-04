@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">SnackMenu</string>
+    <string name="app_name">订餐</string>
 	<string name="more_data">更多</string>
 	<string name="load_more">加载更多</string>
 	<string name="pull_to_refresh_pull_label">下拉刷新</string>
@@ -9,7 +9,12 @@
 	<string name="xlistview_footer_hint_ready">松开载入更多</string>
 	<string name="pull_to_refresh_refresh_lasttime">上次更新时间</string>
 	
+	<string name='food_content'>主料：带皮五花肉1000克、新鲜米饭、凉拌芹菜适量/n
+配料：橄榄油1汤匙、冰糖60克、盐2茶匙、八角2个、桂皮3克、生姜5克、老抽1汤匙、黄酒50毫升</string>
+	
 	<!-- 购物 -->
+	<string name="food_content_add_cart_btn">加入购物车</string>
+	<string name="food_details">详情</string>
 	<string name="chat_btn">购买</string>
 	<string name="price">价格：</string>
 	<string name="add_cart_ahost">已添加至购物车!</string>

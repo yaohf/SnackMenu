@@ -1,12 +1,6 @@
 package com.xin.menu.model;
 
-import java.io.ByteArrayOutputStream;
-
 import com.xin.menu.util.L;
-
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -28,6 +22,9 @@ public class Food implements Parcelable
 	public int count = 1;
 	public int bitmapUrl;
 	public boolean isRacking;
+	
+	
+	
 //	public Bitmap bitmap;
 //	
 //	private static  byte [] byteBitmap;
@@ -84,11 +81,14 @@ public class Food implements Parcelable
 	@Override
 	public void writeToParcel(Parcel dest, int flags)
 	{
+//		L.v("bitmapUrl>>" + bitmapUrl);
+		
 		dest.writeInt(id);
 		dest.writeInt(count);
 		dest.writeString(name);
 		dest.writeFloat(price);
 		dest.writeInt(bitmapUrl);
+		dest.writeInt(isRacking == true ? 0 : 1 );
 //		byteBitmap = getBytes(bitmap);
 //		dest.writeByteArray(byteBitmap);
 //		dest.writeParcelable(bitmap, flags);
@@ -105,8 +105,9 @@ public class Food implements Parcelable
 			item.count = par.readInt();
 			item.name = par.readString();
 			item.price = par.readFloat();
-			item.content = par.readString();
 			item.bitmapUrl = par.readInt();
+			item.isRacking  = par.readInt() == 0 ? true : false;
+			item.content = par.readString();
 //			par.readByteArray(byteBitmap);
 //			item.bitmap = getBitmap(byteBitmap);
 //			item.bitmap = (Bitmap)par.readParcelable(Bitmap.class.getClassLoader());

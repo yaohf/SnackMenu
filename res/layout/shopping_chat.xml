@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:descendantFocusability="beforeDescendants"
     android:gravity="center_horizontal" >
 
     <CheckBox 
     	android:id="@+id/chat_cbox"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
+    	android:layout_centerVertical="true"
+    	
     	android:layout_marginLeft="5dip"
     	android:focusable="false"    />
     
     <ImageView
         android:id="@+id/chat_food_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
         android:layout_toRightOf="@id/chat_cbox"
+        android:contentDescription="@string/app_name"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="5dip"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
     
 
@@ -25,7 +31,7 @@
         android:id="@+id/chat_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dip"
+        android:layout_marginLeft="40dip"
         android:layout_toRightOf="@id/chat_food_view"
          >
 
@@ -53,6 +59,15 @@
             android:layout_height="wrap_content"
             android:text="数量" />
     </RelativeLayout>
+    <Button 
+        android:id="@+id/delete_item_btn"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dip"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/delete_item_cart"/>
+    
     <!--
     <LinearLayout
         android:layout_width="fill_parent"

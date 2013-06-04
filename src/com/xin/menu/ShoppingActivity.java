@@ -95,7 +95,7 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 
 		Bundle bundle = getIntent().getBundleExtra("chat");
 		buyList = bundle.getParcelableArrayList("buy_list");
-
+		
 		int count = bundle.getInt("chat_count");
 		float chatPrice = bundle.getFloat("chat_price");
 
@@ -158,6 +158,18 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 			}
 		}
 		
+	}
+
+	@Override
+	public void onDeleteItem(Food f, View v)
+	{
+		buyList.remove(f);
+		shopping.removeFoodItem(f);
+		
+		chatPriceView.setText(shopping.getSumPrice() + "");
+		commodityCount.setText("" + shopping.getCount());
+		chatTitle.setText("我的购物车(" + shopping.getCount() + ")");
+		chatAdapter.notifyDataSetChanged();
 	}
 
 }
