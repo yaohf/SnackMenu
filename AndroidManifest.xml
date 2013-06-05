@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.xin.menu.ShoppingActivity"></activity>
+        <activity android:name="com.xin.menu.FoodContentActivity"></activity>
     </application>
 
 </manifest>

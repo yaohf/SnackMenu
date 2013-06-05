@@ -2,17 +2,17 @@ package com.xin.menu;
 
 import java.util.ArrayList;
 
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.xin.menu.adapter.ChatAdapter;
@@ -29,18 +29,18 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 	private XListView chatlistview;
 	private TextView chatTitle, commodityCount, chatPriceView;
 	private Button editBtn, chatBtn,deleteBtn;
-	private CheckBox selectBox;
 	
 	ChatAdapter chatAdapter;
 	ArrayList<Food> buyList;
 	private ShoppingCart shopping;
 	
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.shopping_chat_main);
 		shopping = ShoppingCart.getInstance();
 
@@ -50,17 +50,6 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 		chatlistview.setPullRefreshEnable(false);
 		chatlistview.setItemsCanFocus(false);
 		
-		selectBox = (CheckBox) findViewById(R.id.select_box);
-		selectBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
-			
-			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1)
-			{
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		deleteBtn = (Button) findViewById(R.id.delete_btn);
 		deleteBtn.setOnClickListener(new OnClickListener()
 		{
@@ -70,10 +59,8 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 			{
 				L.v("start");
 				for(Food f : flagIds){
-					L.v("f forcech>>" + f);
 					for(Food food : shopping.getCarts()){
 						if(food.equals(f)){
-							L.v("food.id>>" + food.id + "\t f.id>>" + f.id);
 							shopping.removeFoodItem(f);
 							buyList.remove(food);
 							break;
@@ -136,6 +123,20 @@ public class ShoppingActivity extends Activity implements OnItemClickListener,on
 				flagIds.remove(f);
 			}
 		}
+	}
+
+	private void backMain(){
+		Intent intent = new Intent(this,MainActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+			backMain();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

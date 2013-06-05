@@ -8,6 +8,7 @@
         android:id="@+id/recommed_title_pager"
         android:layout_width="fill_parent"
         android:layout_height="200dip"
-        />
+        android:scrollX="50dp"
+        ></com.xin.menu.view.MyViewPager>
 
 </LinearLayout>

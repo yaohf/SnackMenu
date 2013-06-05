@@ -10,17 +10,20 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
+
 public class MyViewPager extends ViewPager
 {
 
-	public MyScroller myScroller;
+    
+	public MyScroller mScroller;
 //	private Context mContext; 
 	
 	public MyViewPager(Context context)
 	{
-		super(context);
-			initView(context);
+		this(context,null);
+		
 	}
+	
 
 	private void  initView(Context c){
 
@@ -30,9 +33,9 @@ public class MyViewPager extends ViewPager
 			{
 				scroller = MyViewPager.class.getDeclaredField("mScroller");
 				scroller.setAccessible(true);
-				myScroller = new MyScroller(c, interpolator);
-				myScroller.setFixedDuration(5000);
-				scroller.set(this, myScroller);
+				mScroller = new MyScroller(c, interpolator);
+				mScroller.setFixedDuration(5000);
+				scroller.set(this, mScroller);
 			} catch (SecurityException e)
 			{
 				// TODO Auto-generated catch block
@@ -53,29 +56,39 @@ public class MyViewPager extends ViewPager
 
 	}
 	
-	
-	
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent arg0)
-	{
-		switch(arg0.getAction()){
-		case MotionEvent.ACTION_DOWN:
-			getParent().requestDisallowInterceptTouchEvent(true);
-			return true;
-		}
-		return super.onInterceptTouchEvent(arg0);
-	}
+//	@Override
+//	public boolean onInterceptTouchEvent(MotionEvent arg0)
+//	{
+////		switch(arg0.getAction())
+////		{
+////		case MotionEvent.ACTION_DOWN:
+////			getParent().requestDisallowInterceptTouchEvent(true);
+////			ret = true;
+////			break;
+////		}
+//		boolean ret = super.onInterceptTouchEvent(arg0);
+//		if(ret){
+//			getParent().requestDisallowInterceptTouchEvent(true);
+//		}
+//		return ret;
+//	}
 
 	public MyViewPager(Context c,AttributeSet att){
 		super(c, att);
+	
 		initView(c);
 		
 	}
-	private class MyScroller extends Scroller{
+	
+	
+	public class MyScroller extends Scroller{
 
 		private int mDuration = 5000;
 		
-		protected void setFixedDuration(int duration){
+		
+		
+		
+		public void setFixedDuration(int duration){
 			this.mDuration = duration;
 		}
 		public MyScroller(Context context){

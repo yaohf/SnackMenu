@@ -4,12 +4,29 @@
     android:layout_height="fill_parent"
     android:minWidth="280dip" 
     android:background="@android:color/white">
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top_back_layout"
+        android:background="#F4A200">
+        <Button 
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:layout_marginBottom="3dip"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/back"/>
+        
+    </LinearLayout>
 <LinearLayout 
     android:orientation="vertical"
     android:id="@+id/top_layout"
+    android:layout_below="@id/top_back_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/header">
+>
     <TextView 
         android:id="@+id/title"
         style="@style/DialogText.Title"
@@ -24,7 +41,6 @@
    <LinearLayout 
        android:id="@+id/content"
        android:orientation="vertical"
-       android:background="@drawable/center"
        android:layout_width="fill_parent"
        android:layout_below="@id/top_layout"
        android:layout_height="wrap_content"
@@ -87,13 +103,27 @@
         android:background="@drawable/bg_alibuybutton_default"
         android:singleLine="true"
         android:text="@string/food_content_add_cart_btn"/>
-    <TextView 
-        android:id="@+id/hidden_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add_cart_btn"
-        android:visibility="invisible"/>
        
    </LinearLayout>
     
+   <LinearLayout 
+       android:id="@+id/buttom_layout"
+       android:layout_below="@id/content"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:gravity="center_horizontal"
+       >
+       <Button 
+           android:id="@+id/in_cart_btn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/go_shopping"/>
+       <Button 
+           android:id="@+id/continue_back_btn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/continue_shopping"/>
+       
+   </LinearLayout>
 </RelativeLayout>
