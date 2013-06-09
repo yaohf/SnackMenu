@@ -2,9 +2,13 @@ package com.xin.menu.view;
 
 import java.lang.reflect.Field;
 
+import com.xin.menu.MainActivity;
+import com.xin.menu.util.L;
+
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -55,23 +59,7 @@ public class MyViewPager extends ViewPager
 			}
 
 	}
-	
-//	@Override
-//	public boolean onInterceptTouchEvent(MotionEvent arg0)
-//	{
-////		switch(arg0.getAction())
-////		{
-////		case MotionEvent.ACTION_DOWN:
-////			getParent().requestDisallowInterceptTouchEvent(true);
-////			ret = true;
-////			break;
-////		}
-//		boolean ret = super.onInterceptTouchEvent(arg0);
-//		if(ret){
-//			getParent().requestDisallowInterceptTouchEvent(true);
-//		}
-//		return ret;
-//	}
+		
 
 	public MyViewPager(Context c,AttributeSet att){
 		super(c, att);

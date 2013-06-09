@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+     >
 
-    <com.xin.menu.view.XListView
-        android:id="@+id/custom_list"
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000">
-    </com.xin.menu.view.XListView>
+        android:layout_height="wrap_content" >
+
+        <fragment 
+            android:name="com.xin.menu.MainListViewFragment"
+            android:id="@+id/main_list_fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+<!-- 
+        <fragment
+            
+            android:id="@+id/food_content_fragment"
+            android:name="com.xin.menu.FoodContentActivity"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+             />
+ -->    </FrameLayout>
+
+    <include layout="@layout/buttom_include" />
 
 </LinearLayout>

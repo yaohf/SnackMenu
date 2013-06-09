@@ -10,6 +10,7 @@ package com.xin.menu.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -33,7 +34,8 @@ public class XListView extends ListView implements OnScrollListener {
 
 	// the interface to trigger refresh and load more.
 	private IXListViewListener mListViewListener;
-
+	
+	
 	// -- header view
 	private XListViewHeader mHeaderView;
 	// header view content, use it to calculate the Header's height. And hide it
@@ -81,6 +83,60 @@ public class XListView extends ListView implements OnScrollListener {
 	public XListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initWithContext(context);
+	}
+	
+	private class InterruptGestureDetectorListener extends GestureDetector.SimpleOnGestureListener{
+
+		@Override
+		public boolean onDown(MotionEvent e)
+		{
+			
+			return super.onDown(e);
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY)
+		{
+			// TODO Auto-generated method stub
+			return super.onScroll(e1, e2, distanceX, distanceY);
+		}
+		
+	}
+
+
+	/**
+	 * 解决viewpager 嵌套问题
+	 */
+	private float xDistance, yDistance, xLast, yLast;
+
+	/**解决viewpager 嵌套 滑动没有焦点问题
+	 * @param context
+	 */
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		switch (ev.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			xDistance = yDistance = 0f;
+			xLast = ev.getX();
+			yLast = ev.getY();
+			break;
+		case MotionEvent.ACTION_MOVE:
+			final float curX = ev.getX();
+			final float curY = ev.getY();
+
+			xDistance += Math.abs(curX - xLast);
+			yDistance += Math.abs(curY - yLast);
+			xLast = curX;
+			yLast = curY;
+
+			if (xDistance > yDistance) {
+				return false;
+			}
+		}
+
+		return super.onInterceptTouchEvent(ev);
 	}
 
 	private void initWithContext(Context context) {

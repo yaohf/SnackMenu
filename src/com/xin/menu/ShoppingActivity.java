@@ -23,7 +23,7 @@ import com.xin.menu.model.ShoppingCart;
 import com.xin.menu.util.L;
 import com.xin.menu.view.XListView;
 
-public class ShoppingActivity extends Activity implements OnItemClickListener,onChanagedCheckBoxListener
+public class ShoppingActivity extends BaseActivity implements OnItemClickListener,onChanagedCheckBoxListener
 {
 
 	private XListView chatlistview;

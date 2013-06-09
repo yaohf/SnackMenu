@@ -11,21 +11,23 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-<LinearLayout
-    android:id="@+id/food_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dip"
-    android:orientation="vertical"
-    tools:ignore="UseCompoundDrawables" >
-
     <ImageView
         android:id="@+id/food_image"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_launcher" />
+<LinearLayout
+    android:id="@+id/food_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dip"
+    android:layout_toRightOf="@id/food_image"
+    android:orientation="vertical"
+ >
+
 	<TextView
 	    android:id="@+id/food_name"
 	    android:layout_width="wrap_content"
@@ -33,19 +35,20 @@
 	    android:layout_marginTop="4dip"
 	    android:layout_marginBottom="4dip"
 	    />
+		<TextView
+	    android:id="@+id/food_content"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="4dip"
+	    android:layout_marginBottom="4dip"
+	    />
+	
     <TextView
         android:id="@+id/food_price"
         android:layout_width="wrap_content"
         android:layout_marginBottom="5dip"
         android:layout_height="wrap_content" 
         />    
-</LinearLayout>"
+</LinearLayout>
 
-<!-- <ImageButton android:id="@+id/chat_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    android:text="@string/chat_btn"/>
- -->
 </RelativeLayout>

@@ -62,6 +62,7 @@ public  class FoodsAdapter extends BaseAdapter
 			view = inflater.inflate(R.layout.list_item, null);
 //			holder.chatBtn = (ImageButton) view.findViewById(R.id.chat_btn);
 			holder.foodImage = (ImageView) view.findViewById(R.id.food_image);
+			holder.foodContent = (TextView) view.findViewById(R.id.food_content);
 			holder.food_price = (TextView) view.findViewById(R.id.food_price);
 			holder.number = (TextView) view.findViewById(R.id.number);
 			holder.foodName = (TextView) view.findViewById(R.id.food_name);
@@ -73,6 +74,7 @@ public  class FoodsAdapter extends BaseAdapter
 		final Food food = lists.get(position);
 		holder.foodImage.setImageResource(food.bitmapUrl);
 		holder.number.setText(food.id + "");
+		holder.foodContent.setText(R.string.food_content);
 		holder.food_price.setText( mContext.getResources().getString(R.string.price) + food.price);
 		holder.foodName.setText(food.name);
 		
@@ -92,7 +94,7 @@ public  class FoodsAdapter extends BaseAdapter
 
 	static final class ViewHolder
 	{
-		TextView number,food_price,foodName;
+		TextView number,food_price,foodName,foodContent;
 		ImageButton chatBtn;
 		
 		ImageView foodImage;
