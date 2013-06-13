@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -128,6 +129,7 @@ public class ChatAdapter extends BaseAdapter
 					v.setBackgroundResource(R.drawable.mm_listitem_simple);
 					ux = event.getX();
 					if(Math.abs(x - ux) > 20){
+						viewHolder.delBtn.startAnimation(new AnimationUtils().loadAnimation(mContext, R.anim.fragment_slide_right_enter));
 						viewHolder.delBtn.setVisibility(View.VISIBLE);
 					}
 

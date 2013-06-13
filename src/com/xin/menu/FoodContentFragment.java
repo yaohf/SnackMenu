@@ -1,10 +1,13 @@
 package com.xin.menu;
 
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +22,7 @@ import com.xin.menu.model.Food;
 import com.xin.menu.model.ShoppingCart;
 
 @SuppressLint("NewApi")
-public class FoodContentActivity extends Fragment
+public class FoodContentFragment extends Fragment
 {
 
 	private TextView food_name_dialog;
@@ -52,7 +55,7 @@ public class FoodContentActivity extends Fragment
 		Bundle bundle = getArguments();
 		if(bundle != null)
 		{
-			final Food food = (Food) bundle.get("food");
+			food = (Food) bundle.get("food");
 			food_name_dialog = (TextView) view.findViewById(R.id.food_name);
 			food_name_dialog.setText(food.name);
 
@@ -112,17 +115,18 @@ public class FoodContentActivity extends Fragment
 			public void onClick(View v)
 			{
 
-				Intent intent = new Intent(getActivity(),
-						ShoppingActivity.class);
 				Bundle b = new Bundle();
 				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());
-
 				b.putParcelableArrayList("buy_list", shopping.getCarts());
-				intent.putExtra("chat", b);
-				startActivity(intent);
-//				overridePendingTransition(R.anim.enter_right_to_left,
-//						R.anim.exit_right_to_left);
+				
+				ShoppingFragment shoppingFragment = new ShoppingFragment();
+				shoppingFragment.setArguments(b);
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.replace(R.id.main_linear, shoppingFragment);
+				ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
+				ft.addToBackStack(null);
+				ft.commit();
 			}
 		});
 

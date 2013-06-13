@@ -7,36 +7,36 @@
             android:layout_gravity="bottom"
             android:background="@drawable/tab_widget_background"
             android:orientation="horizontal"
-            android:layout_weight="0.5"
             android:padding="2dip" >
 
             <RadioButton
-                android:id="@+id/RadioButton0"
+                android:id="@+id/main_rbtn"
                 style="@style/tab_item_background"
                 android:drawableTop="@drawable/tab_icon1"
                 android:text="主页" />
 
             <RadioButton
-                android:id="@+id/RadioButton1"
+                android:id="@+id/cart_rbtn"
+                style="@style/tab_item_background"
+                android:drawableTop="@drawable/tab_icon5"
+                android:text="购物车结算" />
+            
+            <RadioButton
+                android:id="@+id/search_rbtn"
+                style="@style/tab_item_background"
+                android:drawableTop="@drawable/tab_icon4"
+                android:text="搜索" />
+            <RadioButton
+                android:id="@+id/about_rbtn"
                 style="@style/tab_item_background"
                 android:drawableTop="@drawable/tab_icon2"
                 android:text="关于" />
 
             <RadioButton
-                android:id="@+id/RadioButton2"
+                android:id="@+id/setting_rbtn"
                 style="@style/tab_item_background"
                 android:drawableTop="@drawable/tab_icon3"
                 android:text="设置" />
 
-            <RadioButton
-                android:id="@+id/RadioButton3"
-                style="@style/tab_item_background"
-                android:drawableTop="@drawable/tab_icon4"
-                android:text="搜索" />
 
-            <RadioButton
-                android:id="@+id/RadioButton4"
-                style="@style/tab_item_background"
-                android:drawableTop="@drawable/tab_icon5"
-                android:text="更多" />
         </RadioGroup>

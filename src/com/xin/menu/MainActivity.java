@@ -3,10 +3,9 @@ package com.xin.menu;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.RadioGroup;
@@ -23,7 +22,7 @@ public class MainActivity extends BaseActivity
 	private Context mContext;
 
 	private RadioGroup mRadioGroup;
-	FragmentManager fm;
+	android.app.FragmentManager fm;
 
 	ArrayList<Food> lists = new ArrayList<Food>();
 	FoodsAdapter foodsAdapter;
@@ -41,18 +40,22 @@ public class MainActivity extends BaseActivity
 		mContext = this;
 
 		MainListViewFragment mainFragment = new MainListViewFragment();
-
-		fm = getSupportFragmentManager();
+		
+		fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-
-		ft.add(R.id.main_linear, mainFragment, "main_fragment");
+		
+		ft.replace(R.id.main_linear, mainFragment, "main_fragment");
+		
+		ButtomFragment buttomFragment = new ButtomFragment();
+		ft.replace(R.id.main_buttom_linear, buttomFragment);
+		
 		// ft.add(foodContentFragment, "contentFragment");
 		// ft.addToBackStack("main_fragment");
 		// ft.setCustomAnimations(R.anim.enter_right_to_left,
 		// R.anim.exit_right_to_left)
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		ft.commit();
-		mRadioGroup = (RadioGroup) findViewById(R.id.main_radiogroup);
+		
 
 	}
 

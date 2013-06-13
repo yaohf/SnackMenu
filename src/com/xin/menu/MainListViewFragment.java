@@ -1,11 +1,35 @@
 package com.xin.menu;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.xin.menu.adapter.FoodsAdapter;
-import com.xin.menu.adapter.ViewPagerAdapter;
 import com.xin.menu.adapter.FoodsAdapter.ChatListener;
+import com.xin.menu.adapter.ViewPagerAdapter;
 import com.xin.menu.model.Food;
 import com.xin.menu.model.ShoppingCart;
 import com.xin.menu.util.AppUtils;
@@ -13,31 +37,6 @@ import com.xin.menu.util.L;
 import com.xin.menu.view.MyViewPager;
 import com.xin.menu.view.XListView;
 import com.xin.menu.view.XListView.IXListViewListener;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView.ScaleType;
 
 public class MainListViewFragment extends Fragment implements ChatListener,
 IXListViewListener, OnItemClickListener
@@ -364,23 +363,24 @@ IXListViewListener, OnItemClickListener
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 	{
 		Food f = (Food) arg0.getItemAtPosition(arg2);
-		Intent intent = new Intent(mActivity, FoodContentActivity.class);
+		Intent intent = new Intent(mActivity, FoodContentFragment.class);
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("food", f);
 //		intent.putExtra("food_content", bundle);
 //		startActivity(intent);
-		final FoodContentActivity foodContent = new FoodContentActivity();
+		final FoodContentFragment foodContent = new FoodContentFragment();
 		foodContent.setArguments(bundle);
 		
-		AppUtils.fragments.push(this);
+//		AppUtils.fragments.push(this);
 		
-		final FragmentManager fm = getActivity().getSupportFragmentManager();
+		final FragmentManager fm = getActivity().getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 //		ft.add(foodContent, "foodContent");
-		ft.add(R.id.main_list_fragment, foodContent,"foodContent");
-		ft.setCustomAnimations(R.anim.enter_left_to_right,R.anim.exit_left_to_right,R.anim.enter_right_to_left, R.anim.exit_right_to_left);
+		ft.replace(R.id.main_linear, foodContent, "foodContent");//(containerViewId, fragment)(foodContent,"foodContent");
+		ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
 		 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		ft.addToBackStack("main_fragment");
+		
 		ft.commit();
 		
 //		overridePendingTransition(R.anim.enter_right_to_left,

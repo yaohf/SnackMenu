@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
     <application
@@ -22,8 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.xin.menu.ShoppingActivity" android:launchMode="singleTask"></activity>
-        <activity android:name="com.xin.menu.FoodContentActivity" android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

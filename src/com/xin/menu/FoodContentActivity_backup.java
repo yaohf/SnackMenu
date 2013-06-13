@@ -97,7 +97,7 @@ public class FoodContentActivity_backup extends BaseActivity
 			{
 			
 				Intent intent = new Intent(FoodContentActivity_backup.this,
-						ShoppingActivity.class);
+						ShoppingFragment.class);
 				Bundle b = new Bundle();
 				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());

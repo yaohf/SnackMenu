@@ -325,7 +325,7 @@ public class MainActivity_backup extends BaseActivity implements ChatListener,
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 	{
 		Food f = (Food) arg0.getItemAtPosition(arg2);
-		Intent intent = new Intent(MainActivity_backup.this, FoodContentActivity.class);
+		Intent intent = new Intent(MainActivity_backup.this, FoodContentFragment.class);
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("food", f);
 		intent.putExtra("food_content", bundle);
