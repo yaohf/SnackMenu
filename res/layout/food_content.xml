@@ -116,10 +116,12 @@
        >
        <Button 
            android:id="@+id/in_cart_btn"
+            style="?android:attr/buttonBarButtonStyle"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/go_shopping"/>
        <Button 
+            style="?android:attr/buttonBarButtonStyle"
            android:id="@+id/continue_back_btn"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"

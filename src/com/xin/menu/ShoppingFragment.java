@@ -2,17 +2,16 @@ package com.xin.menu;
 
 import java.util.ArrayList;
 
+import org.ais.event.TEvent;
+
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -52,6 +51,8 @@ public class ShoppingFragment extends Fragment implements OnItemClickListener,on
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState)
 	{
+		L.v("start");
+//		TEvent.trigger("buttom_fragment", new Object[]{R.id.cart_rbtn,true});
 		// TODO Auto-generated method stub
 		return inflater.inflate(R.layout.shopping_chat_main, null);
 	}
@@ -212,9 +213,16 @@ public class ShoppingFragment extends Fragment implements OnItemClickListener,on
 		MainListViewFragment mainFragment = new MainListViewFragment();
 		
 		ft.replace(R.id.main_linear, mainFragment, "main_fragment");//(containerViewId, fragment)(foodContent,"foodContent");
-		ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
-//		 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//		ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
+//		ft.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+		ft.setCustomAnimations(R.anim.enter_left_to_right,
+				R.anim.exit_left_to_right);
+//		ft.hide(this);
+		ft.show(mainFragment);
+//		ft.detach(this);
+		 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		ft.commit();
+		
 	
 	}
 

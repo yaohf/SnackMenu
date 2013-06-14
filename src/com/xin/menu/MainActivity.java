@@ -3,9 +3,10 @@ package com.xin.menu;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.RadioGroup;
@@ -22,7 +23,7 @@ public class MainActivity extends BaseActivity
 	private Context mContext;
 
 	private RadioGroup mRadioGroup;
-	android.app.FragmentManager fm;
+	FragmentManager fm;
 
 	ArrayList<Food> lists = new ArrayList<Food>();
 	FoodsAdapter foodsAdapter;
@@ -38,17 +39,14 @@ public class MainActivity extends BaseActivity
 		setContentView(R.layout.main);
 
 		mContext = this;
-
 		MainListViewFragment mainFragment = new MainListViewFragment();
 		
-		fm = getFragmentManager();
+		fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		
-		ft.replace(R.id.main_linear, mainFragment, "main_fragment");
 		
 		ButtomFragment buttomFragment = new ButtomFragment();
 		ft.replace(R.id.main_buttom_linear, buttomFragment);
-		
+		ft.replace(R.id.main_linear, mainFragment, "main_fragment");
 		// ft.add(foodContentFragment, "contentFragment");
 		// ft.addToBackStack("main_fragment");
 		// ft.setCustomAnimations(R.anim.enter_right_to_left,

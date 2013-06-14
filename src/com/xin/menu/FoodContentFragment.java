@@ -3,11 +3,9 @@ package com.xin.menu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +91,7 @@ public class FoodContentFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				backUp();
+				backMain();
 			}
 		});
 
@@ -104,9 +102,10 @@ public class FoodContentFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-				backUp();
+				backMain();
 			}
 		});
+		
 		goShoppingBtn = (Button) view.findViewById(R.id.in_cart_btn);
 		goShoppingBtn.setOnClickListener(new OnClickListener()
 		{
@@ -114,7 +113,6 @@ public class FoodContentFragment extends Fragment
 			@Override
 			public void onClick(View v)
 			{
-
 				Bundle b = new Bundle();
 				b.putInt("chat_count", shopping.getFoodCount());
 				b.putFloat("chat_price", shopping.getSumPrice());
@@ -124,8 +122,15 @@ public class FoodContentFragment extends Fragment
 				shoppingFragment.setArguments(b);
 				FragmentTransaction ft = getFragmentManager().beginTransaction();
 				ft.replace(R.id.main_linear, shoppingFragment);
-				ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
-				ft.addToBackStack(null);
+//				ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+				ft.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+				ft.show(shoppingFragment);
+//				ft.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+//				ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
+				ft.addToBackStack("main_fragment");
+				//点击进入shoppingFragment 的时候 pop 当前stack
+				getFragmentManager().popBackStack();
+				
 				ft.commit();
 			}
 		});
@@ -213,17 +218,20 @@ public class FoodContentFragment extends Fragment
 
 	}
 
-	private void backUp()
-	{
-		
-		
-		
-//		Intent intent = new Intent(FoodContentActivity.this, MainActivity.class);
-//		startActivity(intent);
-//		overridePendingTransition(R.anim.enter_left_to_right,
-//				R.anim.exit_left_to_right);
+	private void backMain(){
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
 
+		MainListViewFragment mainFragment = new MainListViewFragment();
+		
+		ft.replace(R.id.main_linear, mainFragment, "main_fragment");//(containerViewId, fragment)(foodContent,"foodContent");
+//		ft.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+		ft.setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left);
+//		ft.hide(this);
+		ft.show(mainFragment);
+//		ft.setCustomAnimations(R.anim.fragment_slide_left_enter,R.anim.fragment_slide_left_exit,R.anim.fragment_slide_right_enter, R.anim.fragment_slide_right_exit);
+		 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.commit();
+	
 	}
-
 
 }

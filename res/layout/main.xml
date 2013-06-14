@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_linear"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -8,8 +8,10 @@
     <LinearLayout
         android:id="@+id/main_linear"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        tools:ignore="DuplicateIds" >
     </LinearLayout>
 
     <LinearLayout
@@ -17,6 +19,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_weight="1"
         android:orientation="vertical" >
     </LinearLayout>
 

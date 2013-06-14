@@ -5,7 +5,7 @@
     <translate
         android:fromXDelta="0"
         android:toXDelta="-100%p"
-        android:duration="2400"
+        android:duration="400"
     />
    <!--  <scale
         android:fromXScale="0.0"
